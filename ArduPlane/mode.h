@@ -38,6 +38,7 @@ public:
         QRTL          = 21,
         QAUTOTUNE     = 22,
         QACRO         = 23,
+        GROUND_SKIM   = 24, // Custom Aero Club flight mode - SLOW and LOW flight to drop UGV, then gain height.
     };
 
     // Constructor
@@ -477,6 +478,22 @@ protected:
 
     bool takeoff_started;
     Location start_loc;
+
+    bool _enter() override;
+};
+
+class ModeGSKIM : public Mode
+{
+public:
+
+    Number mode_number() const override { return Number::GROUND_SKIM; }
+    const char *name() const override { return "GROUND_SKIM"; }
+    const char *name4() const override { return "GSKM"; }
+
+    // methods that affect movement of the vehicle in this mode
+    void update() override;
+
+protected:
 
     bool _enter() override;
 };
